@@ -1,0 +1,26 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  redis:
+    paymentQueue: ${REDIS_QUEUE:payment_queue}
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+  data:
+    mongodb:
+      host: ${MONGO_INITDB_ROOT_HOST:localhost}
+      port: ${MONGO_INITDB_ROOT_PORT:27017}
+      username: ${MONGO_INITDB_ROOT_USERNAME:admin}
+      password: ${MONGO_INITDB_ROOT_PASSWORD:password}
+      database: ${MONGO_INITDB_ROOT_DATABASE:payment-database}
+      authentication-database: admin
+
+services:
+  payment:
+    default:
+      basePath: ${PAYMENT_PROCESSOR_DEFAULT_URL:http://localhost:8001}
+      token: ${PAYMENT_PROCESSOR_DEFAULT_TOKEN:123}
+    fallback:
+      basePath: ${PAYMENT_PROCESSOR_FALLBACK_URL:http://localhost:8002}
+      token: ${PAYMENT_PROCESSOR_FALLBACK_TOKEN:123}
+
